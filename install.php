@@ -1,3 +1,4 @@
 <?php
-header("Location: index.php?s=Admin/Install"); 
+header("Location: index.php?s=Admin/Install");
+
 ?>
