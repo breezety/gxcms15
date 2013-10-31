@@ -9,7 +9,7 @@
 <script language="javascript" type="text/javascript" charset="utf-8" src="./views/editor/kindeditor.js"></script>
 <script language="javascript" type="text/javascript" charset="utf-8" src="./views/editor/lang/zh_CN.js"></script>
 </head>
-<body> 
+<body>
 <gt name="id" value="0">
 <form name="update" action="?s=Admin/Video/Update" method="post" id="gxform">
 <input type="hidden" name="id" value="{$id}">
@@ -52,6 +52,10 @@
 <li class="l">海 报：<input name="picurl" id="picurl" type="text" class="input" maxlength="255" value="{$picurl}"></li>
 <li class="r" style="padding-top:5px"><iframe src="?s=Admin/Upload/Show/mid/video" scrolling="no" topmargin="0" width="300" height="28" marginwidth="0" marginheight="0" frameborder="0" align="left"></iframe></li>
 </ul>
+    <ul>
+        <li class="l">预告片：<input name="youku_pre_id" id="youku_pre_id" type="text" class="input" maxlength="255" value="{$youku_pre_id}"></li>
+        <li class="r"><input class="bginput" type="button" name="submit" value=" 采集 " onclick="youkuCollect();"></li>
+    </ul>
 <ul style="height:160px;line-height:160px;padding:5px 0px">
 <li style="padding-left:22px;float:left;">播放地址：</li>
 <li style="float:left"><textarea name='playurl' style="width:755px;height:150px" title="播放地址请按每集一行的格式输入">{$playurl}</textarea></li>
@@ -99,6 +103,12 @@ var $content = $('#content').val();
 	document.getElementById("gxform").onreset = function(){
 	KindEditor.html('content', $content);
 }
+
+    function youkuCollect(){
+        $.get('?s=Admin/YoukuCollect/collect/id/{$id}',{},function(data,status){
+            $('#youku_pre_id').val(data);
+        });
+    }
 </script>
 <include file="footer" />
 </body>

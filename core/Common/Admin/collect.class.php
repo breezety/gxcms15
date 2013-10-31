@@ -291,7 +291,7 @@ function get_node_name($nid,$type='name'){
 	    return $nid;
 	}
 }
-	
-	
+
+
 }
 ?>
