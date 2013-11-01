@@ -23,6 +23,14 @@ class YoukuCollectModel extends Model {
         $pattern="/v-link.*?title=\"(.*?)\".*?v_show\/id_(.*?)\.html/s";
         $array=array();
         preg_match_all($pattern,$html,$array);
-        var_dump($array);
+        return $array;
+    }
+
+    public function savePreview($id,$preview_id){
+        $data['id']=$id;
+        $data['youku_pre_id']=$preview_id;
+        $Update=$this->DB->where("id=".$id).save($data);
+        $sql=$this->DB->getLastSql();
+        return $Update;
     }
 }

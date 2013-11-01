@@ -87,6 +87,8 @@
 </td></tr>
 </table>
 </form>
+<!--预告片框 -->
+<div id="pre_div" class="tbc-block"></div>
 <script type="text/javascript">
 var editor;
 KindEditor.ready(function(K){
@@ -106,7 +108,52 @@ var $content = $('#content').val();
 
     function youkuCollect(){
         $.get('?s=Admin/YoukuCollect/collect/id/{$id}',{},function(data,status){
-            $('#youku_pre_id').val(data);
+            eval("var d="+data);
+            openPreview(d.data);
+        });
+    }
+
+    jQuery.fn.center = function () {
+        this.css("position","absolute");
+        this.css("top", ( $(window).height() - this.height() ) / 2+$(window).scrollTop() + "px");
+        this.css("left", ( $(window).width() - this.width() ) / 2+$(window).scrollLeft() + "px");
+        return this;
+    }
+
+    function openPreview(data){
+        var div=$('#pre_div');
+        for(var i=0;i<data[0].length;i++){
+            var radio=$('<input type="radio" name="preview_id" id="preview_id" value="'+data[2][i]+'">'+data[1][i]+"</input></br>");
+            div.append(radio);
+        }
+        var confirm=$('<input type="button" onclick="submitPreview();" value="提交"></input> ');
+        var cancle=$('<input type="button" onclick="closePreview();" value="取消"></input> ');
+        div.append(confirm).append(cancle);
+        div.center();
+        div.show(1,function(){
+            div.animate({
+                "top": "-=50px",
+                "opacity": 1
+            });
+        });
+
+    }
+
+    function submitPreview(){
+        var preview_id=$('input[name="preview_id"]:radio:checked').val();
+        $.get('?s=Admin/YoukuCollect/submitPreview/id/{$id}/preview_id/'+preview_id,
+                {},
+            function(data){
+                closePreview();
+                alert(data);
+            }
+        );
+    }
+
+    function closePreview(){
+        $('#pre_div').animate({
+            "top": "-=50px",
+            "opacity": 0
         });
     }
 </script>
