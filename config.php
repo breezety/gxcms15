@@ -10,7 +10,7 @@ return array (
   'default_theme' => 'default',
   'web_name' => '光线CMS',
   'web_url' => 'http://localhost/',
-  'web_path' => '/gxcms15/',
+  'web_path' => '/gxcms11041/',
   'web_hotkey' => '热门标签1|热门标签2|热门标签3|热门标签4',
   'web_keywords' => 'GXCMS,光线CMS,光线影视内容管理系统',
   'web_description' => '欢迎使用光线影视内容管理系统,通过该程序可以在短时间内建立一个强大的视频站点。',

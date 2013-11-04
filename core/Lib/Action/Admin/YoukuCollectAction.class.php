@@ -22,7 +22,6 @@ class YoukuCollectAction extends AdminAction{
     public function  submitPreview(){
         $preview_id=$_REQUEST['preview_id'];
         $id=$_REQUEST['id'];
-
         $res=$this->YModel->savePreview($id,$preview_id);
         $this->ajaxReturn($res);
     }

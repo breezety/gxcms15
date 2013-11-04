@@ -27,10 +27,13 @@ class YoukuCollectModel extends Model {
     }
 
     public function savePreview($id,$preview_id){
-        $data['id']=$id;
+        $where['id']=$id;
         $data['youku_pre_id']=$preview_id;
-        $Update=$this->DB->where("id=".$id).save($data);
-        $sql=$this->DB->getLastSql();
-        return $Update;
+        $where['id']=$id;
+        $Update=$this->DB->where($where)->save($data);
+        if($Update==true)
+            return true;
+        else
+            return false;
     }
 }
