@@ -6,4 +6,5 @@
  * Time: 下午4:18
  */
 
-var d=eval()
+phpinfo();
+?>
