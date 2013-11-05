@@ -2,7 +2,7 @@
 //单入口模式
 //test
 //tessdfsd1
-//gumao
+//123123123123
 error_reporting(0);
 @set_time_limit(240);
 @ini_set("memory_limit",'-1');
