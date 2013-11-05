@@ -5,6 +5,7 @@ error_reporting(0);
 @ini_set("memory_limit",'-1');
 require("./core/Conf/define.php");
 define('APP_DEBUG', true);
+define('APP_DEBUG', true);
 require(THINK_PATH."/ThinkPHP.php");
 $App = new App();
 $App->run();
