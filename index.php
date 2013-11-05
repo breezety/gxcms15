@@ -8,6 +8,7 @@ error_reporting(0);
 require("./core/Conf/define.php");
 define('APP_DEBUG', true);
 define('APP_DEBUG', true);
+adfs;
 require(THINK_PATH."/ThinkPHP.php");
 $App = new App();
 $App->run();
