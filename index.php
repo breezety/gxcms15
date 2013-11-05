@@ -1,7 +1,7 @@
 <?php
-//单入口模式asdfasdf
-//testsdfsdfsd
-//tessdfsd1sdfsdfsdf
+//单入口模式
+//test
+//tessdfsd1
 error_reporting(0);
 @set_time_limit(240);
 @ini_set("memory_limit",'-1');
@@ -12,5 +12,4 @@ adfs;
 require(THINK_PATH."/ThinkPHP.php");
 $App = new App();
 $App->run();
-adfsdfsdf;
 ?>
