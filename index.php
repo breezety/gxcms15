@@ -1,7 +1,7 @@
 <?php
 //单入口模式
 //test
-//test1
+//tessdfsd1
 error_reporting(0);
 @set_time_limit(240);
 @ini_set("memory_limit",'-1');
