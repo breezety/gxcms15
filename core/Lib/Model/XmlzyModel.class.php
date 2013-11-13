@@ -7,8 +7,10 @@
 class XmlzyModel extends Model {	
 	
     private $VdoDB;
+    private $youku;
     function __construct(){
-		$this->VdoDB=D('video');	
+		$this->VdoDB=D('video');
+        $this->youku=D('Admin.YoukuCollect');
     }
     
 	
@@ -317,53 +319,59 @@ class XmlzyModel extends Model {
 				$down = D('Down');
 				$vod['picurl'] = $down->down_img($vod['picurl']);
 			}
+            //youku
+            $a=C('youku_collect_cid');
+            $b=$vod['cid'];
+            if(in_array($vod['cid'],explode(',',C('youku_collect_cid')))){
+                $vod['youku_pre_id']=$this->youku->collect1($vod['title']);
+            }
 			$this->VdoDB->data($vod)->add();
 			return '视频添加成功！';
-		}
-    }
+}
+}
 
-	/**
-	 * 影片更新检测 
-	 * 
-	 * @param array   $vod    新采集数据
-	 * @param array   $array  数据库查询获取数据
-	 * @param boolean $must
-	 */
-	public function xml_update($vod,$array,$must=false){
-		if('gxcms' == $array['inputer']){
-			return '站长手动锁定，退出更新！';
-		}
-		if(!$must){//是否强制更新资料
-			if ($array['playurl'] == $vod['playurl']) {
-			return '播放地址未变化，退出更新！';
-			}
-			$count_vod   = count(explode(chr(13),($vod['playurl'])));
-			$count_array = count(explode(chr(13),trim($array['playurl'])));
-			if($count_vod < $count_array){
-			return '小于数据库集数，退出更新！';
-			}
-		}else{
-			if (C('upload_http')) {
-				$down = D('Down');
-				$edit['picurl'] = $down->down_img($vod['picurl']);
-			}else{
-				$edit['picurl'] = $vod['picurl'];
-			}
-			$edit['title']    = $vod['title'];
-			$edit['actor']    = $vod['actor'];
-			$edit['director'] = $vod['director'];
-			$edit['area']     = $vod['area'];
-			$edit['language'] = $vod['language'];
-			$edit['reurl']    = $vod['reurl'];		
-		}
-		$edit['intro']    = $vod['intro'];
-		$edit['cid']     = $vod['cid'];
-		$edit['serial']  = $vod['serial'];
-		$edit['playurl'] = $vod['playurl'];
-		$edit['addtime'] = time();
-		$edit['reurl']   = $vod['reurl'];
-		$this->VdoDB->where('id='.$array['id'])->data($edit)->save();	
-		return '播放地址更新成功！';
-	}			
+/**
+ * 影片更新检测
+ *
+ * @param array   $vod    新采集数据
+ * @param array   $array  数据库查询获取数据
+ * @param boolean $must
+ */
+public function xml_update($vod,$array,$must=false){
+    if('gxcms' == $array['inputer']){
+        return '站长手动锁定，退出更新！';
+    }
+    if(!$must){//是否强制更新资料
+        if ($array['playurl'] == $vod['playurl']) {
+            return '播放地址未变化，退出更新！';
+        }
+        $count_vod   = count(explode(chr(13),($vod['playurl'])));
+        $count_array = count(explode(chr(13),trim($array['playurl'])));
+        if($count_vod < $count_array){
+            return '小于数据库集数，退出更新！';
+        }
+    }else{
+        if (C('upload_http')) {
+            $down = D('Down');
+            $edit['picurl'] = $down->down_img($vod['picurl']);
+        }else{
+            $edit['picurl'] = $vod['picurl'];
+        }
+        $edit['title']    = $vod['title'];
+        $edit['actor']    = $vod['actor'];
+        $edit['director'] = $vod['director'];
+        $edit['area']     = $vod['area'];
+        $edit['language'] = $vod['language'];
+        $edit['reurl']    = $vod['reurl'];
+    }
+    $edit['intro']    = $vod['intro'];
+    $edit['cid']     = $vod['cid'];
+    $edit['serial']  = $vod['serial'];
+    $edit['playurl'] = $vod['playurl'];
+    $edit['addtime'] = time();
+    $edit['reurl']   = $vod['reurl'];
+    $this->VdoDB->where('id='.$array['id'])->data($edit)->save();
+    return '播放地址更新成功！';
+}
 }
 ?>

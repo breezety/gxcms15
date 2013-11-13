@@ -28,6 +28,7 @@ $array = array(
 	'cms_urlvar'          =>'http://union.gxcms.com/app/version.js',
 	'cms_exts'            =>'jpg,jpeg,gif,png',	
 	'cms_col_content'     =>'[内容]',
+    'youku_collect_cid'   =>'1,2,3,8,9,10,11,12,13,14,15,16,17,18,19,20,21',
 );
 return array_merge($config,$array);
 ?>
