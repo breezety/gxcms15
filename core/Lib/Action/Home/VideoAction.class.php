@@ -184,12 +184,13 @@ class VideoAction extends HomeAction
         $where['status'] = array('eq', 1);
         $rs = M("Video");
         $array = $rs->where($where)->find();
+        $temp = $array['youku_pre_id'];
         $playarr = explode('-', $where['id']); //ID与集数分隔
         if ($array) {
             $array = $this->tags_video_read($array, $playarr);
             $a = $array['read'];
             $a['player'] = '<embed type="application/x-shockwave-flash" src="http://static.youku.com/v1.0.0242/v/swf/qplayer.swf" wmode="window" id="movie_player" name="movie_player" bgcolor="#FFFFFF" quality="high" allowfullscreen="true" flashvars="isShowRelatedVideo=false&amp;showAd=0&amp;show_pre=1&amp;show_next=1&amp;VideoIDS=' .
-                $array['youku_pre_id'] .
+                $temp.
                 '&amp;isAutoPlay=true&amp;isDebug=false&amp;UserID=&amp;winType=interior&amp;playMovie=true&amp;MMControl=false&amp;MMout=false" pluginspage="http://www.macromedia.com/go/getflashplayer" width="100%" height="440">';
             $array['read'] = $a;
             $this->assign($array['show']);

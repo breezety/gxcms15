@@ -119,17 +119,16 @@
         </div>
         <span class="bl"></span><span class="br"></span></div>
     <div class="blank"></div>
-
-    <empty name="youku_pre_id">
+    <notempty name="youku_pre_id">
         <div class="mov_detail_box bd">
             <div class="ct">
                 <div class="hd"><h3>优酷预告</h3>
                     <br/>
-                    <a href="{$webpath}index.php?s=video/notice/id/{$youku_pre_id}.html" target="_blank">优酷预告</a>
+                    <a href="{$webpath}index.php?s=video/notice/id/{$id}.html" target="_blank">优酷预告</a>
                 </div>
             </div>
         </div>
-    </empty>
+    </notempty>
 
     <if condition="C('user_comment') eq 1">
         <div class="mov_detail_box bd"><span class="tl"></span><span class="tr"></span>
