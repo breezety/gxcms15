@@ -292,6 +292,44 @@ function get_node_name($nid,$type='name'){
 	}
 }
 
+    function get_similar_score($tx1,$tx2){
+        $tx1=collect::get_sort_segment_text($tx1);
+        $tx2=collect::get_sort_segment_text($tx2);
+        $score=0;
+        similar_text($tx1,$tx2,$score);
+        return $score;
+    }
+
+    function get_sort_segment_text($tx){
+        $so = scws_new();
+        $so->set_charset('utf8');
+        $so->send_text($tx);
+        $so->set_ignore(true);
+        $res=array();
+        while($tmp=$so->get_result()){
+            foreach($tmp as $val){
+                array_push($res,$val['word']);
+            }
+        }
+        sort($res);
+        $so->close();
+        return join('',$res);
+    }
+
+    function get_segment_text_array($tx){
+        $so = scws_new();
+        $so->set_charset('utf8');
+        $so->send_text($tx);
+        $so->set_ignore(true);
+        $res=array();
+        while($tmp=$so->get_result()){
+            foreach($tmp as $val){
+                array_push($res,$val['word']);
+            }
+        }
+        $so->close();
+        return $res;
+    }
 
 }
 ?>

@@ -24,7 +24,7 @@ class YoukuCollectModel extends Model {
     }
 
     public function collect0($title){
-        $url='http://www.soku.com/search_video/q_' . urlencode($title.' 预告片');
+        $url='http://www.soku.com/search_video/q_' . urlencode(join(' ',collect::get_segment_text_array($title)).' 预告片');
         $config=array();
         $html=collect::get_html($url,$config);
         $pattern="/v-meta-title.*?title=\"(.*?)\".*?_log_vid=\"(.*?)\"/s";
@@ -35,13 +35,25 @@ class YoukuCollectModel extends Model {
 
     public function collect1($title){
         $array=$this->collect0($title);
-        $a=count($array[0]);
         if(count($array)<=0)
             return '';
-        $title1=$array[1][0];
-        $youkuId=$array[2][0];
-        if(strpos($title1,$title)!==false){
-            return $youkuId;
+
+        //对每个匹配到的视频进行评分,取最高分 且>65分的
+        $res_youku_id='';
+        $max_score=0;
+        for($i=0;$i<count($array[0]);$i++){
+            if(strpos($array[1][$i],'预告')===false){
+                continue;
+            }
+            $score=collect::get_similar_score($title,$array[1][$i]);
+            if($score>$max_score){
+                $res_youku_id=$array[2][$i];
+                $max_score=$score;
+            }
+        }
+
+        if($max_score>=65){
+            return $res_youku_id;
         }else{
             return '';
         }
